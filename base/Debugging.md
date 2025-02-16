@@ -12,11 +12,11 @@ WARNING : ███
 ERROR   : █ (Least Detailed)
 
 
-ERROR	Only errors that break Terraform
-WARNING	ERROR + Warnings about potential issues
-INFO	WARNING + General Terraform execution details
-DEBUG	INFO + Detailed debugging info (API calls, variable values)
-TRACE	DEBUG + Internal Terraform execution steps
+ERROR → Logs only critical errors
+WARN → Logs warnings and errors
+INFO → Logs general operational information
+DEBUG → Logs detailed debugging information - execution step by step
+TRACE → Logs extremely detailed internal debugging
 
 # To use - 
 # Set log type and path before Terraform commands
