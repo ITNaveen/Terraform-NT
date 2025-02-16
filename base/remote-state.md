@@ -19,7 +19,7 @@ resource "local_file" "pet" {
   content  = "We love pets!"
 }
 
-Now we want to save state file to S3, DynamoDB - 
+Now we want to save state file to S3, DynamoDB - so terraform then backend "s3" then key value based bucketname, key, region, tablename.
 TERRAFORM.TF
 terraform {
   backend "s3" {

@@ -1,4 +1,4 @@
-# erraform provisioners are used to execute scripts or commands on a resource after it is created or destroyed. They help with bootstrapping, configuration, and automation of infrastructure.
+# terraform provisioners are used to execute scripts or commands on a resource after it is created or destroyed. They help with bootstrapping, configuration, and automation of infrastructure.
 
 - we have used remote-exec as we are making resources in aws from local terraform - 
 resource "aws_instance" "webserver" {
@@ -24,6 +24,12 @@ resource "aws_instance" "webserver" {
     ]
   }
 }
+
+# using script
+provisioner "remote-exec" {
+  script = "scripts/install_nginx.sh"
+}
+
 
 .........................................................
 - Local-exec can be used to fetch info from remote resource and save that in local.

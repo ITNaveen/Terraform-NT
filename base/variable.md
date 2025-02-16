@@ -158,7 +158,15 @@ variable "length" {
 ..........................................................
 # variable presidence - 
 1. command line
+   terraform apply -var="instance_type=t2.micro"
+
 2. env var (TF_VAR_*)
+   export TF_VAR_instance_type="t2.medium"
+   terraform apply
+
 2. terraform.tfvars
+
 3. any.tfvars
+   terraform apply -var-file="custom.tfvars"
+
 3. variable.tf 

@@ -34,6 +34,8 @@ Removing a Taint --------
 terraform untaint resource_type.resource_name
 terraform untaint aws_instance.webserver
 
+you need to check individually resources wheather they are tainted or not - terraform state show aws_my_ec2
+
 ...........When to Use Tainting................
 Resource appears misconfigured
 Provisioners failed during initial setup
