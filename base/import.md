@@ -6,19 +6,18 @@ terraform import aws_instance.webserver-2 i-0907080ub67v7t6897
 
 Doing this wouldnt make our main.tf updated.
 
-1. we need to write a resource block without attributes like - 
-   resource "aws_instance" "webserver-2" {
+1. resource "aws_instance" "webserver-2" {
    }
+   This is like saying "Hey Terraform, we want to manage this resource" without specifying any details yet
 
-2. now running this - terraform import aws_instance.webserver-2 i-0907080ub67v7t6897 
-   This will then link this resource to terraform state.
+2. terraform import aws_instance.webserver-2 i-0907080ub67v7t6897 
+   This adds the resource to Terraform's state file (terraform.tfstate) but doesn't update main.tf
 
-3. terraform show
-   this will show the current state of the imported resource, including all attributes.
-   now add this resource completely to main.tf
+3. terraform show | grep webserver-2 -A 50
+   The output shows all resource attributes - copy the relevant ones to main.tf. This helps you build the proper configuration.
 
 4. terraform plan 
-   to match infra with configuration.
+   If your main.tf matches the actual resource state, you should see "No changes". If not, adjust your configuration.
 
 5. terraform apply -refresh-only
    It's like doing a "health check" on just your Terraform-managed resources. It completely ignores any resources that were created manually outside of Terraform, even if they're in the same environment.

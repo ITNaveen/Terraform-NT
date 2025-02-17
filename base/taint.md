@@ -24,7 +24,7 @@ Primarily used for troubleshooting infrastructure issues
 ...........Key Commands....................
 Checking Tainted Resources -------
 terraform show
-terraform state list
+terraform state list | grep "\(tainted\)"
 
 Tainting a Resource - 
 terraform taint resource_type.resource_name
