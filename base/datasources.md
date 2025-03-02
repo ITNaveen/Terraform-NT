@@ -4,15 +4,13 @@ How Data Sources Work
     The fetched data can then be used in Terraform configurations.
 
 ex - 
-data "aws_security_group" "existing_sg" {
-  name = "my-security-group"
-}
-
 resource "aws_instance" "my_ec2" {
   ami             = "ami-12345678"
   instance_type   = "t2.micro"
   security_groups = [data.aws_security_group.existing_sg.name]
 }
+
+so i can use data as - data.aws_instance.my_ec2
 
 # terraform console - 
 The Terraform console acts like a sandbox environment where you can test Terraform expressions, commands, and logic before applying them to your infrastructure.

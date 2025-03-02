@@ -61,4 +61,4 @@ version = "< 1.4.0"
 
 or any version in this category - 
 version = "~> 1.2"
-
+greater than or equal to 1.2.

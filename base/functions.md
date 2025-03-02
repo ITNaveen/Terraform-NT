@@ -1,27 +1,23 @@
-we already know these funtions - 
-file - to read file content
+# we already know these funtions - 
+file - to read file content.
 length - to count the length of filename etc.
 toset - to comvert list to set.
 
-- The Terraform console reads your entire Terraform configuration in the current directory (all .tf files) and lets you experiment with it interactively.
-
 # ex - 
-
 $ terraform console
 > file("/root/terraform-projects/main.tf")
 resource "aws_instance" "development" {
     ami           = "ami-0edab43b6fa892279"
     instance_type = "t2.micro"
 }
-file("/root/terraform-projects/main.tf"): Reads the contents of the specified Terraform configuration file.
 
+- file("/root/terraform-projects/main.tf"): Reads the contents of the specified Terraform configuration file.
 
-> length(var.region)
+# length(var.region)
 3
 length(var.region): Returns the number of elements in the var.region list, which is 3.
 
-
-> toset(var.region)
+# toset(var.region)
 [
     "ca-central-1",
     "us-east-1",
@@ -50,28 +46,28 @@ variable "ami" {
 
 $ terraform console
 
-> split(",", "ami-xyz,AMI-ABC,ami-efg")
+- split(",", "ami-xyz,AMI-ABC,ami-efg")
 [ "ami-xyz", "AMI-ABC", "ami-efg" ]
 
-> split(",", var.ami)
+- split(",", var.ami)
 [ "ami-xyz", "AMI-ABC", "ami-efg" ]
 
-> lower(var.ami)
+- lower(var.ami)
 ami-xyz,ami-abc,ami-efg
 
-> upper(var.ami)
+- upper(var.ami)
 AMI-XYZ,AMI-ABC,AMI-EFG
 
-> title(var.ami)
+- title(var.ami)
 Ami-Xyz,AMI-ABC,Ami-Efg
 
-> substr(var.ami, 0, 7)
+- substr(var.ami, 0, 7)
 ami-xyz
 
-> substr(var.ami, 8, 7)
+- substr(var.ami, 8, 7)
 AMI-ABC
 
-> substr(var.ami, 16, 7)
+- substr(var.ami, 16, 7)
 ami-efg
 
 
@@ -86,19 +82,19 @@ variable "ami" {
 
 $ terraform console
 
-> length(var.ami)
+- length(var.ami)
 3
 
-> index(var.ami, "AMI-ABC")
+- index(var.ami, "AMI-ABC")
 1
 
-> element(var.ami, 2)
+- element(var.ami, 2)
 ami-efg
 
-> contains(var.ami, "AMI-ABC")
+- contains(var.ami, "AMI-ABC")
 true
 
-> contains(var.ami, "AMI-XYZ")
+- contains(var.ami, "AMI-XYZ")
 false
 
 
@@ -116,20 +112,20 @@ variable "ami" {
 
 $ terraform console
 
-> keys(var.ami)
+- keys(var.ami)
 [
     "ap-south-1",
     "ca-central-1",
     "us-east-1"
 ]
 
-> values(var.ami)
+- values(var.ami)
 [
     "ami-ABC",
     "ami-efg",
     "ami-xyz"
 ]
 
-lookup(var.ami, "ca-central-1")
+lookup(var.ami, "ca-central-1")   #this give you value.
 ami-efg
 

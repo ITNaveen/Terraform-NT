@@ -30,19 +30,9 @@ terraform {
   }
 }
 
-with encryption - 
-terraform {
-  backend "s3" {
-    bucket         = "my-terraform-state-bucket-7f0ee9229532"
-    key            = "terraform/state"    
-    region         = "us-east-1"
-    encrypt     = true
-    dynamodb_table = "my-lock-table"   
-}
-}
 
 then - 
-terraform init  - we will see option to copy state file from local to s3 as we already have state file in local.
+terraform init -migrate-state - we will see option to copy state file from local to s3 as we already have state file in local.
 Then remove local state file.
 terraform apply will now lock state file in S3 and pull it down to memory.
 
@@ -62,18 +52,6 @@ terraform state show aws_s3_bucket.finance    # This show all the content of sta
 terraform state list 
 to see for info on specific resource - 
 terraform state show aws_instance.ec2-1
-
-# manually created resource inclution - 
-- first mention that resource in main.tf manually 
-- terraform init -upgrade
-- terraform import aws_instance.ec2-2 i-05c3729b6e9f0f6a3   (added instance name and id)
-- terraform apply 
-
-# this instance name to be changed - 
-- first update main.tf file 
-- terraform state mv aws_instance.ec2-2 aws_instance.ec2-backup
-- terraform plan 
-- terraform apply
 
 # check the status of state file wheather its locked or not - 
 aws dynamodb scan --table-name my-lock-table

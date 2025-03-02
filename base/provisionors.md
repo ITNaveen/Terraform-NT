@@ -43,7 +43,7 @@ resource "aws_instance" "webserver" {
 
   # Run local-exec after EC2 is created
   provisioner "local-exec" {
-    command = "echo ${self.private_ip} >> /root/local/resource_details.txt"
+    command = "echo '${self.id} - ${self.private_ip}' >> /root/local/resource_details.txt"
   }
 }
 

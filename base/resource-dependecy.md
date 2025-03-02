@@ -1,15 +1,19 @@
 # implicit dependency - 
+--Generate an RSA private key
 resource "tls_private_key" "pvtkey" {
     algorithm = "RSA"
-    rsa_bits = 4096
-  
+    rsa_bits  = 4096
 }
 
-resource localfile "key_details" {
+--Write the generated key to a file
+resource "local_file" "key_details" {
     filename = "/root/key.txt"
-    content = tls_private_key.pvtkey.private_key_pem  #private_key_pem this name was given 
-  
+    content  = tls_private_key.pvtkey.private_key_pem
 }
+- How is This an Implicit Dependency?
+The local_file resource references the tls_private_key.pvtkey.private_key_pem attribute.
+Terraform knows that local_file.key_details must wait for tls_private_key.pvtkey to be created first.
+Terraform automatically orders these resources without needing an explicit depends_on.
 
 # explicit dependency -
 depends_on

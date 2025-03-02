@@ -1,27 +1,4 @@
-resource "aws_instance" "webserver" {
-  ami           = "ami-0edab43b6fa892279"
-  instance_type = "t2.micro"
-
-  # Log instance creation
-  provisioner "local-exec" {
-    on-failure = continue
-    command = "echo Instance ${aws_instance.webserver.public_ip} Created on $(date) >> /tmp/instance_created.log"
-  }
-}
-so In this case if "/tmp/instance_created.log" is not avaiable then resource creation will be failed and terraform will mark this 
-resource TAINTED.
-
-......................
-......................
-......................
-Terraform Tainting: A Debugging Overview
-What is Tainting?
-
-A debugging mechanism in Terraform
-Marks resources for complete replacement
-Primarily used for troubleshooting infrastructure issues
-
-...........Key Commands....................
+# ...........Key Commands....................
 Checking Tainted Resources -------
 terraform show
 terraform state list | grep "\(tainted\)"

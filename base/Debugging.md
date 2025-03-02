@@ -6,23 +6,33 @@ When something gpes wrong then use debugging and logging is the best way, we hav
 5. TRACE
 
 TRACE   : ████████████████████ (Most Detailed)
+
+
 DEBUG   : ████████████ 
+
+
 INFO    : ████████
+
+
 WARNING : ███
+
+
 ERROR   : █ (Least Detailed)
 
 
-ERROR → Logs only critical errors
-WARN → Logs warnings and errors
-INFO → Logs general operational information
+ERROR → Logs only critical errors.
+WARN → Logs warnings and errors.
+INFO → Logs general operational information.
 
-DEBUG → Logs detailed debugging information - DEBUG logs will show which resource starts, how Terraform evaluates dependencies, and how resources interact as per your configuration
+DEBUG → Logs detailed debugging information - DEBUG logs will show which resource starts, how Terraform evaluates dependencies, and how resources interact as per your configuration.
 
-TRACE → Logs extremely detailed internal debugging -
-If you set TF_LOG=TRACE, you’ll see everything in DEBUG, plus:
-Low-level Terraform internals (e.g., function calls, internal state transitions).
-Extremely detailed information about how Terraform processes resources.
-Deep-dive into the Terraform provider interactions.
+TRACE → 
+Logs extremely detailed internal debugging -
+
+- If you set TF_LOG=TRACE, you’ll see everything in DEBUG.
+- Low-level Terraform internals (e.g., function calls, internal state transitions).
+- xtremely detailed information about how Terraform processes resources.
+- Deep-dive into the Terraform provider interactions.
 
 # To use - 
 # Set log type and path before Terraform commands

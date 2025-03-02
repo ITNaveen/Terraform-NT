@@ -2,10 +2,64 @@
 Terraform generally follows an immutable infrastructure approach, but it's important to understand that it can support both patterns:
 Immutable Infrastructure (Preferred Approach):
 
-Resources are never modified in-place
-When changes are needed, new resources are created and old ones are destroyed
-This ensures consistency and reproducibility
-Reduces configuration drift and "snowflake" servers.
+Resources are never modified in-place.
+When changes are needed, new resources are created and old ones are destroyed.
+This ensures consistency and reproducibility.
+
+# Reduces configuration drift.
+📌 Causes of Drift:
+✅ Manual changes in the cloud console (e.g., modifying an EC2 instance size).
+✅ External automation tools (e.g., AWS Auto Scaling modifying an instance).
+✅ Provider changes (e.g., a security group rule is altered by another tool).
+
+🔹 How to Prevent Terraform Drift?
+✅ Use terraform import to bring manually created resources into Terraform management.
+✅ Enable prevent_destroy = true on critical resources to stop accidental deletions.
+✅ Automate drift detection with scheduled terraform plan runs in CI/CD pipelines.
+✅ Restrict manual changes by enforcing IAM permissions to prevent direct edits.
+
+# how to make sure terraform is used for aws resource creation and not manual way - 
+🔹 Best and Easiest Way: Use an IAM Policy to Block Manual Changes & Allow Only Terraform
+The simplest and most effective way is to create an IAM policy that:
+✅ Denies manual resource creation/modification via AWS Console, CLI, or SDK.
+✅ Allows Terraform to create resources by requiring a special tag (ManagedBy=Terraform).
+
+📌 Steps to Implement
+🔹 Step 1: Create an IAM Policy
+This policy denies resource creation unless the request includes the tag "ManagedBy": "Terraform".
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": "*",  
+            "Resource": "*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "aws:RequestTag/ManagedBy": "Terraform"
+                }
+            }
+        }
+    ]
+}
+
+🔹 Step 2: Attach the Policy to All IAM Users
+Attach this policy to IAM users, groups, or roles who should NOT create resources manually.
+Terraform must always add the tag ManagedBy = Terraform when creating resources.
+
+🔹 Step 3: Ensure Terraform Applies the Required Tag
+Modify your Terraform code to always include the tag.
+resource "aws_instance" "example" {
+  ami           = "ami-12345678"
+  instance_type = "t2.micro"
+
+  tags = {
+    ManagedBy = "Terraform"  # This allows Terraform to create the resource
+  }
+}
+🚀 How This Works
+✅ If someone manually creates a resource (AWS Console, CLI, SDK) ❌ → DENIED
+✅ If Terraform creates a resource (with the required tag) ✅ → ALLOWED
 
 ......................................................................
 # Lifycycle rule - 
@@ -35,7 +89,7 @@ resource "local_file" "pet" {
 
 .......................................
 # Ignore change - 
-we can also intruct terraform not to touch some specifics in th resource with ignore change arguement.
+we can also intruct terraform not to touch some specifics in the resource with ignore change arguement.
 
 resouces "aws_instance" "webserver" {
     ami= 697977023hihoo707

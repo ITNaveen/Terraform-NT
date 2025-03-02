@@ -1,11 +1,14 @@
 # HCL consist of block and arguments - 
 block in curly braces - 
+
 <block> <argument> {
     key1: value1,
     key2: value2
 }
+
 block contains information of infrastructure platform and set of resources within that platform we want to create.
 ex- we can create a local dir then within that - LOCAL.TF and in here we will define resources as block
+
 resource "local_file" "pet" {
   filename = "/root/pets.txt"
   content  = "I love pets"
