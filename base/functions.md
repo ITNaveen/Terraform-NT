@@ -5,7 +5,7 @@ toset - to comvert list to set.
 
 # ex - 
 $ terraform console
-> file("/root/terraform-projects/main.tf")
+file("/root/terraform-projects/main.tf")
 resource "aws_instance" "development" {
     ami           = "ami-0edab43b6fa892279"
     instance_type = "t2.micro"
