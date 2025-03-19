@@ -1,3 +1,4 @@
+```yml
 # main.tf
 resource "local_file" "pet" {
   filename = var.filename
@@ -170,3 +171,4 @@ variable "length" {
    terraform apply -var-file="custom.tfvars"
 
 3. variable.tf 
+```

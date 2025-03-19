@@ -1,6 +1,5 @@
 # mutable and immutable update - 
-Terraform generally follows an immutable infrastructure approach, but it's important to understand that it can support both patterns:
-Immutable Infrastructure (Preferred Approach):
+Terraform generally follows an immutable infrastructure approach, but it's important to understand that it can support both patterns - 
 
 Resources are never modified in-place.
 When changes are needed, new resources are created and old ones are destroyed.
@@ -27,21 +26,23 @@ The simplest and most effective way is to create an IAM policy that:
 📌 Steps to Implement
 🔹 Step 1: Create an IAM Policy
 This policy denies resource creation unless the request includes the tag "ManagedBy": "Terraform".
+```yml
 {
-    "Version": "2012-10-17",
+    "Version": "2012-10-17",  // Specifies the IAM policy language version
     "Statement": [
         {
-            "Effect": "Deny",
-            "Action": "*",  
-            "Resource": "*",
+            "Effect": "Deny",  // Denies the specified actions if the condition is met
+            "Action": "*",  // Denies all AWS actions
+            "Resource": "*",  // Applies the denial to all AWS resources
             "Condition": {
-                "StringNotEqualsIfExists": {
-                    "aws:RequestTag/ManagedBy": "Terraform"
+                "StringNotEqualsIfExists": {  // Condition applies only if the key exists
+                    "aws:RequestTag/ManagedBy": "Terraform"  // Denies actions if the "ManagedBy" tag is NOT "Terraform"
                 }
             }
         }
     ]
 }
+```
 
 🔹 Step 2: Attach the Policy to All IAM Users
 Attach this policy to IAM users, groups, or roles who should NOT create resources manually.

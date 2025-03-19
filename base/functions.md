@@ -1,16 +1,19 @@
 # we already know these funtions - 
 file - to read file content.
 length - to count the length of filename etc.
-toset - to comvert list to set.
+toset - to convert list to set.
 
 # ex - 
-$ terraform console
-file("/root/terraform-projects/main.tf")
+```yaml
+variable "user_data" {
+  default = file("/root/terraform-projects/user_data.sh")
+}
 resource "aws_instance" "development" {
     ami           = "ami-0edab43b6fa892279"
     instance_type = "t2.micro"
+    user_data     = var.user_data
 }
-
+```
 - file("/root/terraform-projects/main.tf"): Reads the contents of the specified Terraform configuration file.
 
 # length(var.region)
@@ -34,18 +37,20 @@ toset(var.region): Converts var.region (which is presumably a list) into a set, 
 3. ceil(10.1) = 11 (more than and closer to previous number)
 4. floor(10.1) = 10 (lesser then and close to previous number)
 
--------STRING FUNCTION - 
+#### STRING FUNCTION - 
 Transform and manupulate string type data. 
 
+```yml
 var.tf
 variable "ami" {
     type        = string
     default     = "ami-xyz,AMI-ABC,ami-efg"
     description = "A string containing ami ids"
 }
+```
+terraform console
 
-$ terraform console
-
+```yml
 - split(",", "ami-xyz,AMI-ABC,ami-efg")
 [ "ami-xyz", "AMI-ABC", "ami-efg" ]
 
@@ -61,7 +66,7 @@ AMI-XYZ,AMI-ABC,AMI-EFG
 - title(var.ami)
 Ami-Xyz,AMI-ABC,Ami-Efg
 
-- substr(var.ami, 0, 7)
+- substr(var.ami, 0, 7)              # 0 = starting point, 7 = length
 ami-xyz
 
 - substr(var.ami, 8, 7)
@@ -69,26 +74,27 @@ AMI-ABC
 
 - substr(var.ami, 16, 7)
 ami-efg
+```
 
-
------------COLLECTION FUNCTION - 
+### COLLECTION FUNCTION - 
 for list, set, map -
+```yml
 var.tf
 variable "ami" {
-    type        = string
-    default     = "ami-xyz,AMI-ABC,ami-efg"
+    type        = list(string)
+    default     = ["ami-xyz,AMI-ABC,ami-efg"]
     description = "A string containing ami ids"
 }
 
-$ terraform console
+terraform console
 
 - length(var.ami)
 3
 
-- index(var.ami, "AMI-ABC")
+- index(var.ami, "AMI-ABC")  # index = position
 1
 
-- element(var.ami, 2)
+- element(var.ami, 2) # element = Value at a Position
 ami-efg
 
 - contains(var.ami, "AMI-ABC")
@@ -96,9 +102,11 @@ true
 
 - contains(var.ami, "AMI-XYZ")
 false
+```
 
+####  MAP FUNCTIONS - 
 
------------------- MAP FUNCTIONS - 
+```yml
 var.tf
 variable "ami" {
     type = map
@@ -128,4 +136,5 @@ $ terraform console
 
 lookup(var.ami, "ca-central-1")   #this give you value.
 ami-efg
+```
 

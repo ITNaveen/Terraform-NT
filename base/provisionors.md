@@ -1,5 +1,5 @@
 # terraform provisioners are used to execute scripts or commands on a resource after it is created or destroyed. They help with bootstrapping, configuration, and automation of infrastructure.
-
+```yml
 - we have used remote-exec as we are making resources in aws from local terraform - 
 resource "aws_instance" "webserver" {
   ami           = "ami-0edab43b6fa892279"
@@ -43,7 +43,7 @@ resource "aws_instance" "webserver" {
 
   # Run local-exec after EC2 is created
   provisioner "local-exec" {
-    command = "echo '${self.id} - ${self.private_ip}' >> /root/local/resource_details.txt"
+    command = "echo '${self.id} - ${self.private_ip}' >> /root/local/resource_details.txt" # self is used inside the resource block where the provisioner is defined.
   }
 }
 
@@ -70,4 +70,4 @@ resource "aws_instance" "webserver" {
   }
 }
 this way it will create resource and save its ip in local in instance_created.log and this - instance_destroyed.log when deleted.
-
+```

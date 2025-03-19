@@ -19,6 +19,10 @@ WARNING : ███
 
 ERROR   : █ (Least Detailed)
 
+- Debug and Trace is most commanly used.
+In short:
+✔ Use TF_LOG=DEBUG for standard debugging.
+✔ Use TF_LOG=TRACE if you need deep insight into Terraform’s internal processing (e.g., for Terraform developers or extreme debugging cases).
 
 ERROR → Logs only critical errors.
 WARN → Logs warnings and errors.

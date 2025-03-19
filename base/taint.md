@@ -11,7 +11,8 @@ Removing a Taint --------
 terraform untaint resource_type.resource_name
 terraform untaint aws_instance.webserver
 
-you need to check individually resources wheather they are tainted or not - terraform state show aws_my_ec2
+you need to check individually resources wheather they are tainted or not - terraform state show aws_my_ec2.
+✅ Yes, if a resource is tainted, it means that Terraform will destroy and recreate it in the next terraform apply.
 
 ...........When to Use Tainting................
 Resource appears misconfigured

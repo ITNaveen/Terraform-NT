@@ -12,6 +12,7 @@ Once these 2 are created then we need -
 3. region
 4. DynamoDB table name.
 
+```yml
 Create resource - 
 MAIN.TF
 resource "local_file" "pet" {
@@ -58,3 +59,4 @@ aws dynamodb scan --table-name my-lock-table
 if it shows manual lock then unlock it or it will prevent any further operation on state file.
 - aws dynamodb delete-item --table-name my-lock-table --key '{"LockID": {"S": "<lockID>"}}'
 - terraform force-unlock <lockID>
+```
